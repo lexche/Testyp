@@ -77,6 +77,11 @@ tailscale login --shields-up --accept-routes --login-server https://vpn.sysadmin
 
 ![W15](https://github.com/lexche/Testyp/assets/95694325/db9e9556-95bc-4acf-9d3b-9f71990dd49f)
 
+Далее вы увидите окно:
+
+![W16](https://github.com/lexche/Testyp/assets/95694325/d6114ed0-060f-424d-b5ad-ee4c19632ce3)
+
+В нём говорится, что необходимо установить одно из приложений на выбор
 
 
 
