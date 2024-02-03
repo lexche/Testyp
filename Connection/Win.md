@@ -33,5 +33,50 @@
 
 ![W7](https://github.com/lexche/Testyp/assets/95694325/51a4f27b-70a2-44bb-ba17-5177b21ce159)
 
+
 2. Tailscale - это современное средство для создания приватных сетей (VPN) с использованием современных принципов безопасности и удобства. Он предоставляет простой способ соединить различные устройства и сети, позволяя им обмениваться данными и ресурсами, будучи при этом защищенным на уровне шифрования и аутентификации.
+
+Дистрибутив доступен по ссылке: https://sysadmin.education-services.ru/downloads/tailscale-setup-full-1.58.2.exe
+
+После запуска запускаем дистрибутив:
+
+![W8](https://github.com/lexche/Testyp/assets/95694325/59507199-9c1b-4dcf-9c18-b60b278cf10c)
+
+Жмём Запустить:
+
+![W9](https://github.com/lexche/Testyp/assets/95694325/c3c160e7-096e-4359-9e6d-5b9b4c0d3c03)
+
+Ставим галочку и жмём Install:
+
+![W10](https://github.com/lexche/Testyp/assets/95694325/41aa8452-1af1-4389-8e58-97524ced8d41)
+
+Нажимаем Close, установка завершена.
+
+![W11](https://github.com/lexche/Testyp/assets/95694325/0a3362a1-1653-43cb-8139-50e0f60545de)
+
+Программа появится в списке программ, можете создать ярлык на рабочем столе или закрепить на панели задач, при необходимости:
+
+![W12](https://github.com/lexche/Testyp/assets/95694325/069d7513-a3b6-424a-abf8-50bb4c397831)
+
+### Настройка доступа
+
+Нажмите сочетание клавиш Win+R введите cmd и Ок:
+
+![W13](https://github.com/lexche/Testyp/assets/95694325/5c9ae2d4-16b3-4fe4-b89d-7d62cae14667)
+
+В появившейся командной строке введите следующую еоманду и нажмите Enter:
+
+```
+tailscale login --shields-up --accept-routes --login-server https://vpn.sysadmin.education-services.ru
+```
+В ответ будет выдана ссылка, которую нужно скопировать и вставить в браузер:
+
+![W14](https://github.com/lexche/Testyp/assets/95694325/37cbaa71-6f8a-42fc-9002-7ac1e5383214)
+
+При переходе по ссылке вам будет предложено ввести логин и пароль, которые вым выдали ранее, введите их:
+
+![W15](https://github.com/lexche/Testyp/assets/95694325/db9e9556-95bc-4acf-9d3b-9f71990dd49f)
+
+
+
 
