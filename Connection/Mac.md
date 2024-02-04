@@ -28,7 +28,7 @@
 
 ![M04](https://github.com/lexche/Testyp/assets/95694325/ea6b4c5b-5cdf-4895-b484-41476cf6d015)
 
-Запускаем. Посде запуска появится окно, нажимаем Open (Открыть):
+Запускаем. После запуска появится окно, нажимаем Open (Открыть):
 
 ![M05](https://github.com/lexche/Testyp/assets/95694325/c32892ab-51aa-4fef-9b5c-58b2ab308e27)
 
