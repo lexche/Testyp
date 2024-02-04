@@ -58,7 +58,7 @@
 
 ![M11](https://github.com/lexche/Testyp/assets/95694325/226c5f2e-1573-4199-802b-4c822e92ee7e)
 
-Terminal (Терминал), можете закрепить его в Docks, может пригодится :
+Terminal (Терминал), можете закрепить его в Docks, может пригодиться :
 
 ![M12](https://github.com/lexche/Testyp/assets/95694325/c8702e02-1140-45a9-880d-28348e40f5c4)
 
