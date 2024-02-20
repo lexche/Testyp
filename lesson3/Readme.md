@@ -230,3 +230,6 @@ sudo systemctl enable zabbix-agent
 
 ---
 
+Подробнее про Prometheus в будущих уроках, в этом же разберём основные функции Prometheus в сравнениии с Zabbix.
+
+
