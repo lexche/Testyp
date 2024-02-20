@@ -148,4 +148,21 @@ sudo systemctl enable zabbix-agent
 
 Как можно увидеть, он "бегает".
 
-Перейдём к серверной части:
+Перейдём к серверной части, страница авторизации выглядит следующим образом:
+
+<p align="center">
+<img src="https://github.com/lexche/Testyp/assets/95694325/db3f5a54-37e1-4b15-97f4-dbe17020cbbb">
+</p>
+
+Введя логин и пароль, попадаем на начальную страницу:
+
+<p align="center">
+<img src="https://github.com/lexche/Testyp/assets/95694325/f568e6dd-6278-42ff-bf3b-283c59ae203e">
+</p>
+
+Обратим внимание на панель управления слева, раздел "Сбор данных":
+
+<p align="center">
+<img src="https://github.com/lexche/Testyp/assets/95694325/16da1e41-4652-4066-a707-29183d6050a8">
+</p>
+
