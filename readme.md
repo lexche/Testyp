@@ -123,4 +123,9 @@ https://sysadmin.education-services.ru/downloads/Packet_Tracer821_64bit_setup_si
 ![5 2 3 11](https://github.com/lexche/Testyp/assets/95694325/a60c3e41-7f24-45fa-90aa-a71759bb1584)
 
 
-Кликните на появившийся коммутатор и перейдите во вкладку CLI (Comand Line interface)
+Кликните на появившийся коммутатор и перейдите во вкладку CLI (Comand Line interface).
+
+![5 2 3 12](https://github.com/lexche/Testyp/assets/95694325/c870ef13-9d75-423f-81c5-1e320295c836)
+![5 2 3 13](https://github.com/lexche/Testyp/assets/95694325/571e8f61-6140-4486-8391-e7f13ec38779)
+
+
