@@ -135,4 +135,5 @@ https://sysadmin.education-services.ru/downloads/Packet_Tracer821_64bit_setup_si
 
 ![5 2 3 14](https://github.com/lexche/Testyp/assets/95694325/25ab4011-979c-4dab-9baf-170533df8872)
 
+Отлично. Имя есть, теперь сделаем пароль для того, чтобы начинать работу с коммутатором и переходить в режим конфигурирования.
 
