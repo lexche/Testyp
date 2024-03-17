@@ -116,10 +116,11 @@ https://sysadmin.education-services.ru/downloads/Packet_Tracer821_64bit_setup_si
 
 В открывшнмся окне обратите внимание на левый нижний угол. Выбираем Network Devices->Switches. 
 
-![5 2 3 10](https://github.com/lexche/Testyp/assets/95694325/50c000f9-24c4-4f82-a267-39ab5dc1379b)
+![5 2 3 10](https://github.com/lexche/Testyp/assets/95694325/43e22105-392a-4412-831d-831574c8e09a)
 
 Возьмём коммутатор 2960 и перетащите его на основное поле.
 
-![5 2 3 11](https://github.com/lexche/Testyp/assets/95694325/a91b0b94-ae70-4c0d-b9ba-7aef8564e57e)
+![5 2 3 11](https://github.com/lexche/Testyp/assets/95694325/a60c3e41-7f24-45fa-90aa-a71759bb1584)
+
 
 Кликните на появившийся коммутатор и перейдите во вкладку CLI (Comand Line interface)
