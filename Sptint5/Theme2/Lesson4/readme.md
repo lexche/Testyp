@@ -148,3 +148,8 @@
 <img src="https://github.com/lexche/Testyp/assets/95694325/abf181c8-094f-4458-9028-7e193dc8a12d">
 </p>
 
+Зайдём в настройки компьютера и сервера и назначим им ip-адреса из разных подсетей: 192.168.0.0/24 и 192.168.1.0/24, зайдём в свойства устройств и пропишем ip-адреса вручную:
+
+<img src="https://github.com/lexche/Testyp/assets/95694325/0d9341ab-3c68-4b4e-8fec-0ece278cf576" width="500" height="500">  <img src="https://github.com/lexche/Testyp/assets/95694325/da3c50da-cafe-4201-a274-c5c25ef77d42" width="500" height="500">
+
+
