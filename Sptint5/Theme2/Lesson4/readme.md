@@ -252,3 +252,10 @@ L       192.168.1.1/32 is directly connected, FastEthernet0/1
 
 Этот вывод показывает таблицу маршрутизации, где указаны подсети, подключенные напрямую к маршрутизатору (C - connected), а также локальные IP-адреса интерфейсов (L - local). 
 
+Теперь если мы попробуем проверить доступность устройств между собой, то увидим, что они доступны:
+
+<img src="https://github.com/lexche/Testyp/assets/95694325/497c9a40-6d03-4afc-b422-5786374c7fbb" width="500" height="500">  <img src="https://github.com/lexche/Testyp/assets/95694325/cf78a318-9e89-4eae-8824-837e11167edc" width="500" height="500">
+
+
+
+
