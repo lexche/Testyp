@@ -154,13 +154,9 @@
 
 Проверим доступен ли сервер из подсети компьютера с помощью команды ping:
 
-```
-c:/ ping 192.168.1.20
-PING 192.168.1.20 (192.168.1.20): 56 data bytes
-Request timeout for icmp_seq 0
-Request timeout for icmp_seq 1
+<img src="https://github.com/lexche/Testyp/assets/95694325/497c9a40-6d03-4afc-b422-5786374c7fbb" width="500" height="500">  <img src="https://github.com/lexche/Testyp/assets/95694325/c4ba1a93-679e-4382-973c-ae8b5e7c3519" width="500" height="500">
 
-```
+
 Недоступен.
 
 Чтобы доступ появился необходимо настроить роутер. В подсеть 0.0/24 подключен интерфейс FastEthernet 0/0, в подсеть 1.0/24 - FastEthernet 0/1.
@@ -265,7 +261,9 @@ L       192.168.1.1/32 is directly connected, FastEthernet0/1
 
 Теперь если мы попробуем проверить доступность устройств между собой, то увидим, что они доступны:
 
-<img src="https://github.com/lexche/Testyp/assets/95694325/497c9a40-6d03-4afc-b422-5786374c7fbb" width="500" height="500">  <img src="https://github.com/lexche/Testyp/assets/95694325/cf78a318-9e89-4eae-8824-837e11167edc" width="500" height="500">
+<p align="center">
+<img src="https://github.com/lexche/Testyp/assets/95694325/cf78a318-9e89-4eae-8824-837e11167edc">
+</p>
 
 ### Практическое задание.
 
