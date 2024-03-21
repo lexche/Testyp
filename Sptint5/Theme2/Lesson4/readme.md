@@ -152,4 +152,103 @@
 
 <img src="https://github.com/lexche/Testyp/assets/95694325/0d9341ab-3c68-4b4e-8fec-0ece278cf576" width="500" height="500">  <img src="https://github.com/lexche/Testyp/assets/95694325/da3c50da-cafe-4201-a274-c5c25ef77d42" width="500" height="500">
 
+Далее настроим роутер. В подсеть 0.0/24 подключен интерфейс FastEthernet 0/0, в подсеть 1.0/24 - FastEthernet 0/1.
+
+Подключимся к роутера и в терминале введём следующие команды:
+
+```
+
+Router>enable 
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip address 192.168.0.1 255.255.255.0
+Router(config-if)#no shutdown 
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#interface fastEthernet 0/1
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no shutdown 
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+Router(config-if)#end
+Router#wr
+
+```
+Объясним написанное:
+
+1. Router>enable - Переключение в режим привилегий, который позволяет получить расширенный доступ к командам для настройки.
+
+2. Router#conf t - Команда для входа в режим глобальной конфигурации, где можно настраивать параметры устройства.
+
+3. Router(config)#interface fastEthernet 0/0 - Переход к настройке интерфейса FastEthernet0/0.
+
+4. Router(config-if)#ip address 192.168.0.1 255.255.255.0 - Назначение IP-адреса 192.168.0.1 с маской подсети 255.255.255.0 на интерфейс FastEthernet0/0.
+
+5. Router(config-if)#no shutdown - Включение (активация) интерфейса FastEthernet0/0.
+
+6. %LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up - Сообщение о том, что состояние интерфейса FastEthernet0/0 изменилось на "вверх" (up), т.е. интерфейс активирован.
+
+7. %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up - Сообщение о том, что протокол линии на интерфейсе FastEthernet0/0 изменил состояние на "вверх" (up).
+
+8. Router(config-if)#exit - Покидает режим настройки интерфейса и возвращается в режим глобальной конфигурации.
+
+9. Router(config)#interface fastEthernet 0/1 - Переход к настройке интерфейса FastEthernet0/1.
+
+10. Router(config-if)#ip address 192.168.1.1 255.255.255.0 - Назначение IP-адреса 192.168.1.1 с маской подсети 255.255.255.0 на интерфейс FastEthernet0/1.
+
+11. Router(config-if)#no shutdown - Включение (активация) интерфейса FastEthernet0/1.
+
+12. %LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up - Сообщение о том, что состояние интерфейса FastEthernet0/1 изменилось на "вверх" (up), т.е. интерфейс активирован.
+
+13. %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up - Сообщение о том, что протокол линии на интерфейсе FastEthernet0/1 изменил состояние на "вверх" (up).
+
+14. Router(config-if)#end - Завершение настройки интерфейсов и возврат в режим привилегий.
+
+15. Router#wr - Сохранение настроек в конфигурационный файл.
+
+После этого, если посмотрим на таблицу маршрутов, то увидим:
+
+```
+
+Router#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     192.168.0.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.0.0/24 is directly connected, FastEthernet0/0
+L       192.168.0.1/32 is directly connected, FastEthernet0/0
+     192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.1.0/24 is directly connected, FastEthernet0/1
+L       192.168.1.1/32 is directly connected, FastEthernet0/1
+
+```
+Из этого вывода мы видим что 
+
+1. 192.168.0.0/24 is variably subnetted, 2 subnets, 2 masks:
+   - 192.168.0.0/24 - Имеются две подсети с маской /24 в сети 192.168.0.0.
+   - C 192.168.0.0/24 is directly connected, FastEthernet0/0 - Сеть 192.168.0.0/24 подключена напрямую к интерфейсу FastEthernet0/0.
+   - L 192.168.0.1/32 is directly connected, FastEthernet0/0 - Локальный IP-адрес 192.168.0.1/32 назначен интерфейсу FastEthernet0/0.
+
+2. 192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks:
+   - 192.168.1.0/24 - Имеются две подсети с маской /24 в сети 192.168.1.0.
+   - C 192.168.1.0/24 is directly connected, FastEthernet0/1 - Сеть 192.168.1.0/24 подключена напрямую к интерфейсу FastEthernet0/1.
+   - L 192.168.1.1/32 is directly connected, FastEthernet0/1 - Локальный IP-адрес 192.168.1.1/32 назначен интерфейсу FastEthernet0/1.
+
+Этот вывод показывает таблицу маршрутизации, где указаны подсети, подключенные напрямую к маршрутизатору (C - connected), а также локальные IP-адреса интерфейсов (L - local). 
 
