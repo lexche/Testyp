@@ -136,5 +136,64 @@ Router#wr
 3. Фишинг и мошенничество: Фаерволы могут блокировать доступ к вредоносным сайтам, предотвращая попытки кражи личной информации или финансовых данных сотрудников.
 4. Защита от нежелательного контента: Фаерволы могут фильтровать трафик и блокировать доступ к определенным категориям сайтов (например, игровые сайты, социальные сети) в корпоративной сети.
 
+Для примера возьмём наш предыдущий стэнд и добавим следующие строки на маршрутизаторе 0:
+
+```
+Router(config)# access-list 100 deny ip host 192.168.1.10 host 192.168.0.10
+Router(config)# access-list 100 permit ip any any
+Router(config)# interface FastEthernet0/0
+Router(config-if)# ip access-group 100 in
+
+```
+
+Разберём что это всё значит по шагам:
+
+1. Создание списка доступа для запрета доступа с хоста 192.168.1.10 к хосту 192.168.0.10:
+
+   ```plaintext
+   Router(config)# access-list 100 deny ip host 192.168.1.10 host 192.168.0.10
+   ```
+
+   - Router(config)#: Этот префикс указывает, что команда выполняется в режиме конфигурации на маршрутизаторе.
+   - access-list 100: Создание расширенного списка доступа (ACL) с номером 100.
+   - deny ip host 192.168.1.10 host 192.168.0.10: Запрещение трафика от хоста с IP-адресом 192.168.1.10 к хосту с IP-адресом 192.168.0.10.
+
+2. Разрешение всего остального трафика с помощью правила permit any any:
+
+   ```plaintext
+   Router(config)# access-list 100 permit ip any any
+   ```
+
+   - access-list 100: Продолжение работы с ACL номер 100.
+   - permit ip any any: Разрешение всех типов IP-трафика между любыми узлами в сети.
+
+3. Применение ACL к интерфейсу FastEthernet0/0 для входящего трафика:
+
+   ```plaintext
+   Router(config)# interface FastEthernet0/0
+   Router(config-if)# ip access-group 100 in
+   ```
+
+   - Router(config)# interface FastEthernet0/0: Переход к конфигурации интерфейса FastEthernet0/0 на маршрутизаторе.
+   - ip access-group 100 in: Применение ACL с номером 100 для фильтрации входящего трафика на этом интерфейсе.
+
+После этого доступ к устройству прекратиться:
+
+```
+C:\>ping 192.168.0.10
+
+Pinging 192.168.0.10 with 32 bytes of data:
+
+Reply from 10.10.10.1: Destination host unreachable.
+Reply from 10.10.10.1: Destination host unreachable.
+Reply from 10.10.10.1: Destination host unreachable.
+Reply from 10.10.10.1: Destination host unreachable.
+
+Ping statistics for 192.168.0.10:
+    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
+
+```
+
+Чтобы проверить, что правило работает только для этого устройства вы можете поменять сетевой адрес устройства и убедиться, что оно вновь стало доступно.
 
 
