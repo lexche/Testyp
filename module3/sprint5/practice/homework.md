@@ -26,21 +26,31 @@
 Router>enable
 Router#
 Router#configure terminal
-Router(config)#int FastEthernet 1/0.10
+Router(config)#int FastEthernet 1/0.100
 Router(config-subif)#encapsulation dot1Q 10
 Router(config-subif)#ip address 172.16.10.1 255.255.255.0
 Router(config-subif)#ex
-Router(config)#int FastEthernet 1/0.20
+Router(config)#int FastEthernet 1/0.200
 Router(config-subif)#encapsulation dot1Q 20
 Router(config-subif)#ip add 172.16.20.1 255.255.255.0
 Router(config-subif)#ex
+Router(config)#  access-list 101 deny ip 172.16.10.0 0.0.0.255 172.16.20.0 0.0.0.255
+Router(config)#access-list 101 permit ip any any
+Router(config)#  access-list 102 deny ip 172.16.20.0 0.0.0.255 172.16.10.0 0.0.0.255
+Router(config)#access-list 102 permit ip any any
+Router(config)#interface FastEthernet 1/0.100
+Router(config-subif)#  ip access-group 101 in
+Router(config-subif)#  ip access-group 102 out
+Router(config-subif)#ex
+Router(config)#interface FastEthernet 1/0.200
+Router(config-subif)#ip access-group 101 out
+Router(config-subif)#ip access-group 102 in
+Router(config-subif)#ex
 Router(config)#ex
-Router#
-%SYS-5-CONFIG_I: Configured from console by console
-
 Router#wr
 Building configuration...
 [OK]
 
+```
 
 
