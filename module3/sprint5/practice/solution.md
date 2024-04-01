@@ -172,3 +172,89 @@ Router(config-subif)#ex
 ### Задание 3.
 
 
+Начнём со второй площадки, так как интерфейс у нас там настроен и "подключен" к "интернету".
+
+Для подсети 192.168.10.0/24:
+
+```
+Router#conf t
+Router(config)#interface FastEthernet1/0.10
+Router(config-subif)#ip nat inside 
+Router(config-subif)#ex
+Router(config)#interface FastEthernet0/1
+Router(config-if)#ip nat outside
+Router(config-if)#ex
+Router(config)#ip nat inside source list 1 interface FastEthernet0/1 overload
+Router(config)#access-list 1 permit 192.168.10.0 0.0.0.255
+
+```
+
+
+Для подсети 192.168.20.0/24:
+
+```
+Router#conf t
+Router(config)#interface FastEthernet1/0.20
+Router(config-subif)#ip nat inside 
+Router(config-subif)#ex
+Router(config)#interface FastEthernet0/1
+Router(config-if)#ip nat outside
+Router(config-if)#ex
+Router(config)#ip nat inside source list 2 interface FastEthernet0/1 overload
+Router(config)#access-list 2 permit 192.168.20.0 0.0.0.255
+
+```
+
+Объясним только одну последовательность команд, так как они практически идентичны:
+
+1. Router#conf t: Это команда перехода в режим конфигурации.
+
+2. Router(config)#interface FastEthernet1/0.20: Эта команда переводит нас в режим настройки подинтерфейса FastEthernet1/0.20. Мы настраиваем подинтерфейс с идентификатором VLAN 20 для NAT внутренней части сети.
+
+3. Router(config-subif)#ip nat inside: Эта команда указывает, что данный интерфейс является внутренним для NAT. Подинтерфейс FastEthernet1/0.20 помечается как внутренний для NAT, что означает, что IP-адреса в этой сети будут транслироваться.
+
+4. Router(config-subif)#ex: Выходим из режима настройки подинтерфейса.
+
+5. Router(config)#interface FastEthernet0/1: Переход к настройке физического интерфейса FastEthernet0/1. Мы настраиваем указанный интерфейс как внешний для NAT, к которому подключены устройства вне внутренней сети.
+
+6. Router(config-if)#ip nat outside: Указываем, что данный интерфейс является внешним для NAT. Интерфейс FastEthernet0/1 помечается как внешний для NAT, указывая, что IP-трафик, проходящий через этот интерфейс, должен быть переведен.
+
+7. Router(config-if)#ex: Выходим из режима настройки интерфейса FastEthernet0/1.
+
+8. Router(config)#ip nat inside source list 2 interface FastEthernet0/1 overload: Конфигурируем источник NAT с использованием списка ACL и перегрузкой исходных IP-адресов. Указывается, что IP-адреса из списка ACL 2 должны быть переведены при прохождении через интерфейс FastEthernet0/1 с использованием NAT overload.
+
+9. Router(config)#access-list 2 permit 192.168.20.0 0.0.0.255: Создаем ACL для разрешения трансляции адресов. В ACL с номером 2 разрешено транслировать IP-адреса из диапазона 192.168.20.0/24. Эти адреса будут подвергаться NAT при выходе на интерфейс FastEthernet0/1.
+   
+Далее подключаем свободный интерфейс маршрутизатора R0 к глобальной паутине (сетевому хабу). Назначаем на интерфейсе ip-адрес210.0.11.20 255.255.255.0, и проделываем тоже самое, только меняем подсети:
+
+Для подсети 192.168.10.0/24:
+
+```
+Router#conf t
+Router(config)#interface FastEthernet1/0.10
+Router(config-subif)#ip nat inside 
+Router(config-subif)#ex
+Router(config)#interface FastEthernet0/1
+Router(config-if)#ip nat outside
+Router(config-if)#ex
+Router(config)#ip nat inside source list 1 interface FastEthernet0/1 overload
+Router(config)#access-list 1 permit 172.16.10.0 0.0.0.255
+
+```
+
+
+Для подсети 192.168.20.0/24:
+
+```
+Router#conf t
+Router(config)#interface FastEthernet1/0.20
+Router(config-subif)#ip nat inside 
+Router(config-subif)#ex
+Router(config)#interface FastEthernet0/1
+Router(config-if)#ip nat outside
+Router(config-if)#ex
+Router(config)#ip nat inside source list 2 interface FastEthernet0/1 overload
+Router(config)#access-list 2 permit 172.16.20.0 0.0.0.255
+
+```
+
