@@ -258,3 +258,22 @@ Router(config)#access-list 2 permit 172.16.20.0 0.0.0.255
 
 ```
 
+Немного ждём, с первого раза может пинг не пройти, но со второго раза должны увидеть:
+
+```
+
+C:\>ping 210.0.11.50
+
+Pinging 210.0.11.50 with 32 bytes of data:
+
+Reply from 210.0.11.50: bytes=32 time<1ms TTL=127
+Reply from 210.0.11.50: bytes=32 time<1ms TTL=127
+Reply from 210.0.11.50: bytes=32 time<1ms TTL=127
+Reply from 210.0.11.50: bytes=32 time<1ms TTL=127
+
+Ping statistics for 210.0.11.50:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+
+```
