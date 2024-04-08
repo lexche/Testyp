@@ -59,3 +59,5 @@
 Сервер             |  СХД
 :-------------------------:|:-------------------------:
 <img src="https://github.com/lexche/Testyp/assets/95694325/d66c1418-d009-4685-903a-f0875fbe3f2d" width="500" height="500"> | <img src="https://github.com/lexche/Testyp/assets/95694325/710aac35-7f13-4eb9-a0d6-644df951ef29" width="500" height="500">
+
+
