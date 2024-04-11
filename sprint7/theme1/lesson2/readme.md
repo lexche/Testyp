@@ -151,16 +151,16 @@ $ sudo pvdisplay
 Создадим группу томов lvm (VG) с помощью утилиты vgcreate:
 
 ```
-$ sudo vgcreate sausage-store /dev/vdb1 /dev/vdb2
-  Volume group "sausage-store" successfully created
+$ sudo vgcreate store /dev/vdb1 /dev/vdb2
+  Volume group "store" successfully created
 
 $ sudo vgs
   VG            #PV #LV #SN Attr   VSize VFree
-  sausage-store   2   0   0 wz--n- 1.99g 1.99g
+  store           2   0   0 wz--n- 1.99g 1.99g
 
 $ sudo vgdisplay
   --- Volume group ---
-  VG Name               sausage-store
+  VG Name               store
   System ID
   Format                lvm2
   Metadata Areas        2
