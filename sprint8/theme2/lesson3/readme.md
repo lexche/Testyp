@@ -45,21 +45,21 @@ db.createCollection('faculties', {validator: {$jsonSchema: {bsonType: 'object',r
 
 • {bsonType: 'object', required: ['ID', 'firstName', 'lastName', 'age', 'gpa'], properties: {...}}: Это сама валидационная схема JSON. Она определяет следующее:
 
-    * bsonType: 'object': Указывает, что документ должен быть объектом.
+- bsonType: 'object': Указывает, что документ должен быть объектом.
 
-    * required: ['ID', 'firstName', 'lastName', 'age', 'gpa']: Указывает, что поля ID, firstName, lastName, age и gpa являются обязательными для каждого документа в коллекции.
+- required: ['ID', 'firstName', 'lastName', 'age', 'gpa']: Указывает, что поля ID, firstName, lastName, age и gpa являются обязательными для каждого документа в коллекции.
 
-    * properties: Определяет типы данных для каждого из обязательных полей:
+- properties: Определяет типы данных для каждого из обязательных полей:
 
-        * ID: Должно быть числом (bsonType: 'number').
+        - ID: Должно быть числом (bsonType: 'number').
 
-        * firstName: Должно быть строкой (bsonType: 'string').
+        - firstName: Должно быть строкой (bsonType: 'string').
 
-        * lastName: Должно быть строкой (bsonType: 'string').
+        - lastName: Должно быть строкой (bsonType: 'string').
 
-        * age: Должно быть числом (bsonType: 'number').
+        - age: Должно быть числом (bsonType: 'number').
 
-        * gpa: Должно быть числом (bsonType: 'number').
+        - gpa: Должно быть числом (bsonType: 'number').
 
 Таким образом, эта строка кода создает коллекцию students с валидационной схемой, которая требует, чтобы все документы имели определенную структуру и содержали обязательные поля ID, firstName, lastName, age и gpa с соответствующими типами данных, для коллекции faculties объяснение выше также подходит, отличие только в полях: ID,  Faculty, PS.
 
