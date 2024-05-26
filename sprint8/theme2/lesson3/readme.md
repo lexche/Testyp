@@ -15,7 +15,7 @@ use yp_db
 ```
 db.createCollection('students', {validator: {$jsonSchema: {bsonType: 'object',required: ['ID', 'firstName', 'lastName', 'age', 'gpa'],properties: {ID: { bsonType: 'number' },firstName: { bsonType: 'string' },lastName: { bsonType: 'string' },age: { bsonType: 'number' },gpa: { bsonType: 'number' }}}}});
 
-db.createCollection('faculties', {validator: {$jsonSchema: {bsonType: 'object',required: ['ID', 'Faculty', 'PS'],properties: {ID: { bsonType: 'number' },Faculty: { bsonType: 'string' },PS: { bsonType: 'number' }}}}});
+db.createCollection('faculties', {validator: {$jsonSchema: {bsonType: 'object',required: ['ID', 'Faculty', 'gpa'],properties: {ID: { bsonType: 'number' },Faculty: { bsonType: 'string' },gpa: { bsonType: 'number' }}}}});
 
 ```
 
@@ -63,7 +63,7 @@ db.createCollection('faculties', {validator: {$jsonSchema: {bsonType: 'object',r
 
         - gpa: Должно быть числом (bsonType: 'number').
 
-Таким образом, эта строка кода создает коллекцию students с валидационной схемой, которая требует, чтобы все документы имели определенную структуру и содержали обязательные поля ID, firstName, lastName, age и gpa с соответствующими типами данных, для коллекции faculties объяснение выше также подходит, отличие только в полях: ID, Faculty, PS.
+Таким образом, эта строка кода создает коллекцию students с валидационной схемой, которая требует, чтобы все документы имели определенную структуру и содержали обязательные поля ID, firstName, lastName, age и gpa с соответствующими типами данных, для коллекции faculties объяснение выше также подходит, отличие только в полях: ID, Faculty, gpa.
 
 Внесём данные о факультетах в соответствующую коллекцию с помощью операции insert. Операция insert в MongoDB используется для вставки нового документа или нескольких документов в коллекцию. Метод insertOne используется для вставки одного документа в коллекцию, а insertMany вставляет несколько документов. Убедитесь, что документы соответствуют схеме коллекции перед вставкой.
 
@@ -77,7 +77,7 @@ document: Документ, который нужно вставить.
 Внесём факультеты и их проходные балы в соответствующую коллекцию:
 
 ```
-db.faculties.insertMany([ {ID: 1, Faculty: "Квантовый кодинг", PS: 9 },{ ID: 2, Faculty: "Астроинформатика", PS: 8 },{ID: 3, Faculty: "Технологии долголетия", PS: 7 },{ ID: 4, Faculty: "Технологии устойчивого развития", PS: 6 } ])
+db.faculties.insertMany([ {ID: 1, Faculty: "Квантовый кодинг", gpa: 9 },{ ID: 2, Faculty: "Астроинформатика", gpa: 8 },{ID: 3, Faculty: "Технологии долголетия", gpa: 7 },{ ID: 4, Faculty: "Технологии устойчивого развития", gpa: 6 } ])
 ```
 
 Сделаем то же самое со списком студентов:
@@ -254,7 +254,7 @@ db.students.updateOne({ ID: 7 }, { $set: { firstName: 'Robert', lastName: 'Rober
 Руководство онлайн платформы решили добавить ещё один курс: "Программирование на языке PsyDuck" с проходным балом 5. Добавим эту информацию в соответствующую коллекцию:
 
 ```
-db.faculties.insertOne( {ID: 5, Faculty: "Программирование на языке PsyDuck", PS: 5 } )
+db.faculties.insertOne( {ID: 5, Faculty: "Программирование на языке PsyDuck", gpa: 5 } )
 
 ```
 
@@ -550,4 +550,55 @@ db.authors.aggregate([
 
 Затем мы используем оператор `$facet`, чтобы создать несколько этапов агрегации. Мы выбираем книги, написанные авторами старше 40 лет в жанре "фэнтези", после чего результат записывается в новую коллекцию "fantasy_books_over_40".
 
+3. Поработаем с нашей БД. У нас есть 5 факультетов и 10 студентов. Создадим новую коллекцию Score, в неё мы запишем на какой из курсов поступили студенты при условии, что каждый студент хочет попасть на факультет с наивысшим балом, на каждом факультете есть 2 места.
+
+Создаём коллекцию "Score":
+
+```
+db.createCollection("Score");
+```
+
+Следующим действием, решаем поставленную задачу:
+
+```
+db.students.find().sort({ gpa: -1 }).forEach(student => {
+    let availableFaculty = db.faculties.findOne({ studentCount: { $lt: 2 }, gpa: { $lte: student.gpa }, "admittedStudents": { $nin: [student.lastName] } });
+    if (availableFaculty) {
+        db.faculties.updateOne({ _id: availableFaculty._id }, {
+            $inc: { studentCount: 1 },
+            $push: { admittedStudents: student.lastName }
+        });
+        db.Score.insertOne({
+            "lastName": student.lastName,
+            "gpa": student.gpa,
+            "faculty": availableFaculty.Faculty
+        });
+    } else {
+        print(`Студент ${student.lastName} не был зачислен ни на один факультет.`);
+    }
+});
+```
+
+Хоть решение и очевидно, мы позволим себе дать комментарии того, что произошло:
+
+1. db.students.find().sort({ gpa: -1 }).forEach(student => { - Здесь мы ищем всех студентов в коллекции "students", сортируем их по убыванию среднего балла (GPA) и для каждого студента выполняем следующий код.
+
+2. let availableFaculty = db.faculties.findOne({ studentCount: { $lt: 2 }, gpa: { $lte: student.gpa }, "admittedStudents": { $nin: [student.lastName] } }); - Мы ищем факультет, который удовлетворяет следующим условиям: количество студентов на факультете меньше двух, средний балл GPA на факультете не превышает GPA текущего студента, и текущий студент еще не был зачислен на этот факультет.
+
+3. if (availableFaculty) { - Если нашли подходящий факультет для студента, выполняем следующий код.
+
+4. db.faculties.updateOne({ _id: availableFaculty._id }, { $inc: { studentCount: 1 }, $push: { admittedStudents: student.lastName } }); - Увеличиваем количество студентов на факультете на 1 и добавляем фамилию текущего студента в список зачисленных на этот факультет.
+
+5. db.Score.insertOne({ "lastName": student.lastName, "gpa": student.gpa, "faculty": availableFaculty.Faculty }); - Записываем информацию о студенте (фамилия, средний балл, факультет) в коллекцию "Score".
+
+6. else { print(Студент ${student.lastName} не был зачислен ни на один факультет.); } - Если не удалось найти подходящий факультет для студента, выводим сообщение о том, что студент не был зачислен ни на один факультет.
+
+
 ### Практическое задание.
+
+Возьмите 3й пример из второй части урока, "напильник" и немного его доработайте: дайте более полную информацию о студенте, помимо фамилии добавьте имя и возраст. Создайте для каждого факультета коллекцию с поступившими студентами на основе коллекции Score.
+
+---
+
+
+В этом уроке мы плотно поработали в mongosh, кроме того проработали и закрепили CRUD-операции, узнали что такое валидационная схема JSON, агрегационный пайплайн в MongoDB, где и как они используются разобрали примеры использования.
