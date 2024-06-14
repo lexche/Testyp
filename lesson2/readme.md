@@ -477,3 +477,169 @@ room3 = calc_square(3, 6)
 rooms_sum = room1 + room2 + room3
 print('Суммарная площадь комнат равна', rooms_sum, 'кв.м')
 ```
+### Практическое задание
+
+1. Выберите, как называются разные блоки программы ниже:
+2. 
+   ```
+   students = ['Ира', 'Маша', 'Ваня', 'Петя']
+
+def hello():                        # A
+    for student in students:
+          print('Привет, ' + student)  # B
+
+hello()                             # C 
+
+    ```
+
+a. A - объявление функции, B - тело цикла, С - вызов функции Верно
+
+b. B - объявление функции, A - тело цикла, С - вызов функции
+
+c. C - объявление функции, B - тело цикла, A - вызов функции
+
+2. Доработайте программу подсчёта тёплых дней в мае 2017 г. : допишите функцию comfort_count() так, чтобы она возвращала подсчитанное количество тёплых дней.
+
+```
+may_2023 = [24, 26, 15, 10, 15, 19, 10, 1, 4, 7, 7, 7, 12, 14, 17, 8, 9, 19, 21, 22, 11, 15, 19, 23, 15, 21, 16, 13, 25, 17, 19]
+
+# Допишите эту функцию
+def comfort_count(temperatures):
+    count = 0
+    for temp in temperatures:
+        if 22 <= temp <= 26:
+            count += 1
+    # Функция должна вернуть значение переменной count
+    ...
+
+# Код ниже не изменяйте:
+# вызовем функцию comfort_count(), передадим в неё список may_2023,
+# результат работы сохраним в переменную nice_days
+nice_days = comfort_count(may_2023)
+
+# Напечатаем значение, сохранённое в nice_days
+print('Количество тёплых дней в этом месяце:', nice_days)
+```
+
+Решение:
+
+```
+may_2023 = [24, 26, 15, 10, 15, 19, 10, 1, 4, 7, 7, 7, 12, 14, 17, 8, 9, 19, 21, 22, 11, 15, 19, 23, 15, 21, 16, 13, 25, 17, 19]
+
+
+def comfort_count(temperatures):
+    count = 0
+    for temp in temperatures:
+        if 22 <= temp <= 26:
+            count += 1
+    return count
+
+# Код ниже не изменяйте:
+# вызовем функцию comfort_count(), передадим в неё список may_2023,
+# результат работы сохраним в переменную nice_days
+nice_days = comfort_count(may_2023)
+
+# Напечатаем значение, сохранённое в nice_days
+print('Количество тёплых дней в этом месяце:', nice_days)
+```
+3. Есть 2 списка: Студенты и Преподаватели.
+ ```
+students = ['Emma','Liam','Olivia','Noah','Ava','William','Isabella','James','Sophia','Logan','Mia','Elijah','Charlotte','Carter','Amelia','Oliver','Evelyn','Mason','Harper','Ethan','Emily','Alexander','Avery','Sebastian','Scarlett','Michael','Grace','Daniel','Chloe','Jacob','Zoey','Benjamin','Lily','Luke','Madison','Matthew','Aubrey','Henry','Layla','Joseph','Lillian','Caleb','Nora','Wyatt','Elizabeth','Owen','Abigail','Jack','Ella','Samuel','Addison']
+
+mentors = {
+    'Alice': 0,
+    'Charlie': 0,
+    'David': 0
+}
+```
+1.Разбейте студентов на 3 группы(подвоха нет, в списке 51 студент, прекрасно делиться.)
+2. Назначте каждому преподавателю по группе и выведите этот список на экран
+
+Итак, для выполнения этого задания вам понадобятся функции:
+
+```
+1. def divide_students(students, num_groups):
+    group_size = len(students) // num_groups
+    return [students[i:i+group_size] for i in range(0, len(students), group_size)]
+
+2. def assign_mentors(groups, mentors):
+    sorted_mentors = sorted(mentors.items(), key=lambda x: x[1])
+    mentors_list = [mentor[0] for mentor in sorted_mentors]
+
+    result = {}
+    for idx, group in enumerate(groups):
+        mentor = mentors_list[idx % len(mentors_list)]
+        result[f'Group {idx+1}'] = {'Students': group, 'Mentor': mentor}
+        mentors[mentor] += 1
+
+    return result
+```
+1.  Функция dividestudents(students, numgroups):
+
+   - Эта функция принимает словарь студентов и количество групп, на которые их нужно разделить.
+
+   - Первая строка вычисляет размер каждой группы по формуле len(students) // numgroups, где len(students) - количество студентов.
+
+   - Возвращается список списков студентов, разделенных на группы, используя list comprehension.
+
+2.  Функция assignmentors(groups, mentors):
+
+   - Эта функция принимает список групп студентов и словарь менторов.
+
+   - Сортирует менторов по значению (предположительно, количество студентов, которых они могут взять).
+
+   - Создает список имен менторов на основе отсортированного списка.
+
+   - Далее создается пустой словарь 'result', в котором будут храниться данные о группах студентов и их менторах.
+
+   - Затем происходит перебор групп студентов. Каждая группа сопоставляется с ментором из списка менторов.
+
+   - Информация о группе и менторе добавляется в словарь 'result'.
+
+   - После этого увеличивается счетчик студентов у ментора в словаре менторов.
+
+   - В конце функция возвращает словарь 'result' с информацией о группах студентов и их менторах.
+
+В итоге начало вашего скрипта будет выглядеть:
+
+```
+students = ['Emma','Liam','Olivia','Noah','Ava','William','Isabella','James','Sophia','Logan','Mia','Elijah','Charlotte','Carter','Amelia','Oliver','Evelyn','Mason','Harper','Ethan','Emily','Alexander','Avery','Sebastian','Scarlett','Michael','Grace','Daniel','Chloe','Jacob','Zoey','Benjamin','Lily','Luke','Madison','Matthew','Aubrey','Henry','Layla','Joseph','Lillian','Caleb','Nora','Wyatt','Elizabeth','Owen','Abigail','Jack','Ella','Samuel','Addison']
+
+mentors = {
+    'Alice': 0,
+    'Charlie': 0,
+    'David': 0
+}
+
+def divide_students(students, num_groups):
+    group_size = len(students) // num_groups
+    return [students[i:i+group_size] for i in range(0, len(students), group_size)]
+
+def assign_mentors(groups, mentors):
+    sorted_mentors = sorted(mentors.items(), key=lambda x: x[1])
+    mentors_list = [mentor[0] for mentor in sorted_mentors]
+
+    result = {}
+    for idx, group in enumerate(groups):
+        mentor = mentors_list[idx % len(mentors_list)]
+        result[f'Group {idx+1}'] = {'Students': group, 'Mentor': mentor}
+        mentors[mentor] += 1
+
+    return result
+```
+
+Ответ: Часть которую должен дописать студент:
+
+```
+
+# 1.Разбиваем студентов на когорты
+num_groups = 3
+groups = divide_students(students, num_groups)
+
+# 2. Назначаем наставников для каждой когорты
+assigned_groups = assign_mentors(groups, mentors)
+
+for group, data in assigned_groups.items():
+    print(f'{group}: {data}')
+```
+
