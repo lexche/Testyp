@@ -179,4 +179,159 @@ conn.close()  # Закрываем соединение с базой данны
 
 Важно правильно использовать функцию close() после окончания работы с файлами или объектами, чтобы избежать возможных проблем с ресурсами.
 
+### Практическое задание
 
+Представьте, что у вас есть некий логфайл, который хранится в файле log.txt:
+
+```
+2023-10-27 10:15:32 INFO: Starting application...
+2023-10-27 10:15:32 DEBUG: Loading configuration file...
+2023-10-27 10:15:33 INFO: Configuration file loaded successfully.
+2023-10-27 10:15:33 DEBUG: Connecting to database...
+2023-10-27 10:15:34 INFO: Database connection established.
+2023-10-27 10:15:34 WARNING: Some database tables are outdated.
+2023-10-27 10:15:34 DEBUG: Checking for updates...
+2023-10-27 10:15:35 INFO: Database updated successfully.
+2023-10-27 10:15:35 DEBUG: Starting main process...
+2023-10-27 10:15:35 INFO: Main process started.
+2023-10-27 10:15:36 DEBUG: Processing request 1...
+2023-10-27 10:15:37 INFO: Request 1 processed successfully.
+2023-10-27 10:15:37 DEBUG: Processing request 2...
+2023-10-27 10:15:38 INFO: Request 2 processed successfully.
+2023-10-27 10:15:38 DEBUG: Processing request 3...
+2023-10-27 10:15:39 INFO: Request 3 processed successfully.
+2023-10-27 10:15:39 DEBUG: Processing request 4...
+2023-10-27 10:15:40 INFO: Request 4 processed successfully.
+2023-10-27 10:15:40 DEBUG: Processing request 5...
+2023-10-27 10:15:41 INFO: Request 5 processed successfully.
+2023-10-27 10:15:41 DEBUG: Processing request 6...
+2023-10-27 10:15:42 INFO: Request 6 processed successfully.
+2023-10-27 10:15:42 DEBUG: Processing request 7...
+2023-10-27 10:15:43 INFO: Request 7 processed successfully.
+2023-10-27 10:15:43 DEBUG: Processing request 8...
+2023-10-27 10:15:44 INFO: Request 8 processed successfully.
+2023-10-27 10:15:44 DEBUG: Processing request 9...
+2023-10-27 10:15:45 INFO: Request 9 processed successfully.
+2023-10-27 10:15:45 DEBUG: Processing request 10...
+2023-10-27 10:15:46 INFO: Request 10 processed successfully.
+2023-10-27 10:15:46 DEBUG: Processing request 11...
+2023-10-27 10:15:47 INFO: Request 11 processed successfully.
+2023-10-27 10:15:47 DEBUG: Processing request 12...
+2023-10-27 10:15:48 INFO: Request 12 processed successfully.
+2023-10-27 10:15:48 DEBUG: Processing request 13...
+2023-10-27 10:15:49 INFO: Request 13 processed successfully.
+2023-10-27 10:15:49 DEBUG: Processing request 14...
+2023-10-27 10:15:50 INFO: Request 14 processed successfully.
+2023-10-27 10:15:50 DEBUG: Processing request 15...
+2023-10-27 10:15:51 INFO: Request 15 processed successfully.
+2023-10-27 10:15:51 DEBUG: Processing request 16...
+2023-10-27 10:15:52 INFO: Request 16 processed successfully.
+2023-10-27 10:15:52 DEBUG: Processing request 17...
+2023-10-27 10:15:53 INFO: Request 17 processed successfully.
+2023-10-27 10:15:53 DEBUG: Processing request 18...
+2023-10-27 10:15:54 INFO: Request 18 processed successfully.
+2023-10-27 10:15:54 DEBUG: Processing request 19...
+2023-10-27 10:15:55 INFO: Request 19 processed successfully.
+2023-10-27 10:15:55 DEBUG: Processing request 20...
+2023-10-27 10:15:56 INFO: Request 20 processed successfully.
+2023-10-27 10:15:56 DEBUG: Shutting down application...
+2023-10-27 10:15:57 INFO: Application shut down successfully.
+```
+ Вам нужно написать скрипт, который оставит в этом лог файле только события Debug c 10:15:40 до 10:15:50.
+
+ Вам немного повезло, у вас в распоряжении есть скрипт с пояснениями, который оставляет только события Info:
+
+ ```
+import re
+    """
+   Импортируется модуль регулярных выражений для работы с текстовыми данными. Это позволяет использовать регулярные выражения в скрипте.
+    """
+
+def read_log_data(filename):
+    """
+    объявляется функция read_log_data(filename), которая будет читать данные из лог-файла и возвращать список строк. 
+    """
+    with open(filename, 'r', encoding='utf-8') as f:
+    """
+    открывается файл filename для чтения текста с указанным кодированием (utf-8). Файл связывается с переменной f в контексте      with, который автоматически закроет файл после завершения работы.
+    """
+        data = f.readlines()
+     """
+     данные из файла считываются и сохраняются в переменную data в виде списка строк.
+     """
+    return data
+    """
+    список строк возвращается после чтения данных из файла.
+    """
+
+def write_processed_log(filename, processed_data):
+    """
+    Функция записывает обработанные данные в лог-файл.
+    """
+    with open(filename, 'w', encoding='utf-8') as f:
+    """
+     открывается файл filename для записи текста с указанным кодированием (utf-8). Файл связывается с переменной f в контексте      with, который автоматически закроет файл после завершения работы.
+    """
+        f.writelines(processed_data)
+
+def process_log(filename):
+    """
+    Основная функция, которая обрабатывает данные из лог-файла.
+    """
+    log_data = read_log_data(filename)
+
+    # Обработка данных:  извлечение только строк с уровнем "INFO"
+    processed_data = []
+    for line in log_data:
+        if re.search(r'^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} INFO:', line):
+            processed_data.append(line)
+
+    write_processed_log(filename, processed_data)
+
+if __name__ == '__main__':
+    log_filename = 'log.txt'  # Имя лог-файла
+    process_log(log_filename)  # Вызов функции обработки лога
+
+```
+Решение автора:
+
+```
+
+import re
+
+def read_log_data(filename):
+    """
+    Функция читает данные из лог-файла и возвращает список строк.
+    """
+    with open(filename, 'r', encoding='utf-8') as f:
+        data = f.readlines()
+    return data
+
+def write_processed_log(filename, processed_data):
+    """
+    Функция записывает обработанные данные в лог-файл.
+    """
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.writelines(processed_data)
+
+def process_log(filename):
+    """
+    Основная функция, которая обрабатывает данные из лог-файла.
+    """
+    log_data = read_log_data(filename)
+
+    # Обработка данных:  извлечение только строк с уровнем "DEBUG" 
+    # в промежутке времени с 10:15:40 до 10:15:50
+    processed_data = []
+    for line in log_data:
+        if re.search(r'^[0-9]{4}-[0-9]{2}-[0-9]{2} 10:15:[4][0-9] DEBUG:', line) or \
+           re.search(r'^[0-9]{4}-[0-9]{2}-[0-9]{2} 10:15:50 DEBUG:', line):
+            processed_data.append(line)
+
+    write_processed_log(filename, processed_data)
+
+if __name__ == '__main__':
+    log_filename = 'log.txt'  # Имя лог-файла
+    process_log(log_filename)  # Вызов функции обработки лога
+
+```
